@@ -1,6 +1,7 @@
 import os
 import hashlib
 import time
+import shutil
 
 class Repository:
     def __init__(self, repo_dir='.dscs'):
@@ -229,3 +230,13 @@ class Repository:
         # For simplicity, we will assume a conflict occurs if both branches have modified the same file
         # (This is a simplified conflict detection and would need to be more advanced in a full implementation)
         return ["file1.txt", "file2.txt"]  # Placeholder for conflicting files
+
+    def clone(self, target_dir):
+        """Clone the repository to a new directory."""
+        if os.path.exists(target_dir):
+            print(f"The directory {target_dir} already exists. Cannot clone here.")
+            return
+
+        # Copy all the repository contents to the target directory
+        shutil.copytree(self.repo_dir, target_dir)
+        print(f"Repository successfully cloned to {target_dir}.")

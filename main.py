@@ -24,6 +24,9 @@ def main():
     repo.switch_branch('master')
     repo.merge('feature-branch')
 
+    # Clone the repository
+    repo.clone('cloned_repo')
+
     # View commit history
     repo.log()
 
