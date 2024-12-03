@@ -6,6 +6,7 @@ import shutil
 class Repository:
     def __init__(self, repo_dir='.dscs'):
         self.repo_dir = repo_dir
+        self.ignore_file = '.ignore'  # Default ignore file name
 
     def init_repository(self):
         """Initialize a new DSCS repository."""
@@ -37,7 +38,12 @@ class Repository:
         return sha1.hexdigest()
 
     def add_file(self, file_path):
-        """Add a file to the staging area."""
+        """Add a file to the staging area, respecting the .ignore file."""
+        # Check if the file is in the ignore list
+        if self.is_file_ignored(file_path):
+            print(f"File '{file_path}' is ignored based on .ignore rules.")
+            return
+
         if not os.path.exists(file_path):
             print(f"File '{file_path}' does not exist.")
             return
@@ -57,6 +63,22 @@ class Repository:
             index_file.write(f"{file_path} {file_hash}\n")
 
         print(f"File '{file_path}' added to staging area.")
+
+    def is_file_ignored(self, file_path):
+        """Check if the file is ignored based on the .ignore file."""
+        if not os.path.exists(self.ignore_file):
+            return False  # No ignore file, so don't ignore anything
+
+        with open(self.ignore_file, 'r') as ignore_file:
+            ignore_patterns = ignore_file.readlines()
+
+        # Check each pattern in the ignore file
+        for pattern in ignore_patterns:
+            pattern = pattern.strip()
+            if pattern and file_path.endswith(pattern):
+                return True
+
+        return False
 
     def get_current_branch(self):
         """Get the current branch from HEAD."""
@@ -229,7 +251,7 @@ class Repository:
         """Check for conflicts between two branches."""
         # For simplicity, we will assume a conflict occurs if both branches have modified the same file
         # (This is a simplified conflict detection and would need to be more advanced in a full implementation)
-        return ["file1.txt", "file2.txt"]  # Placeholder for conflicting files
+        return ["pesapalRegdoc1.txt", "pesapalRegdoc2.txt"]  # Placeholder for conflicting files
 
     def clone(self, target_dir):
         """Clone the repository to a new directory."""
