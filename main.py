@@ -16,7 +16,7 @@ def main():
     repo.create_branch('PesaPal2024SourceControlSystem')
     repo.switch_branch('PesaPal2024SourceControlSystem')
     with open('pesapaldoc2.txt', 'w') as f:
-        f.write('Hello from feature branch!')
+        f.write('Hello World?!!!!')
     repo.add_file('pesapaldoc2.txt')
     repo.commit("Feature branch commit with pesapaldoc2.txt")
 
@@ -24,8 +24,8 @@ def main():
     repo.switch_branch('master')
     repo.merge('PesaPal2024SourceControlSystem')
 
-    # Clone the repository
-    repo.clone('cloned_repo')
+    # Clone the repository(you can change here to new diff repo)
+    repo.clone('new_cloned_repo')
 
     # View commit history
     repo.log()

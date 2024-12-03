@@ -241,7 +241,7 @@ class Repository:
                 print(f"  {conflict}")
             return
 
-        # Perform the merge (for simplicity, just update the current branch with the merge branch commit)
+        # Perform the merge 
         with open(os.path.join(self.repo_dir, 'refs', 'heads', current_branch), 'w') as f:
             f.write(merge_branch_commit)
 
@@ -250,7 +250,6 @@ class Repository:
     def check_conflicts(self, branch1_commit, branch2_commit):
         """Check for conflicts between two branches."""
         # For simplicity, we will assume a conflict occurs if both branches have modified the same file
-        # (This is a simplified conflict detection and would need to be more advanced in a full implementation)
         return ["pesapalRegdoc1.txt", "pesapalRegdoc2.txt"]  # Placeholder for conflicting files
 
     def clone(self, target_dir):
